@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Register_Inputs">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/register_inputs</item>
+        <item name="android:drawableLeft">@drawable/register_company_drawable_left</item>
+    </style>
+    <style name="Register_Labels">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:textStyle">bold</item>
+
+    </style>
+    <style name="Register_Company_Layout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/register_company_layout</item>
+    </style>
+    <style name="Register_Button" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/greeney_button</item>
+
+    </style>
+</resources>

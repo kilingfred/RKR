@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Register_Product_Labels">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Register_Product_Inputs">
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="Register_Product_Button">
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/bluey_button</item>
+        <item name="android:backgroundTint">@null</item> <!-- Needed to avoid Material tinting -->
+        <item name="android:textColor">@color/buttonText</item>
+    </style>
+</resources>
