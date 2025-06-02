@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RKR</string>
+    <string name="passwordCompareFail">Passwords don\'t match</string>
 </resources>

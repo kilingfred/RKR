@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.RegisterProductActivity"
+    android:padding="16dp">
+
+    <ScrollView
+        style="@style/AppContainer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Назва -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Назва продукту" />
+                <EditText android:id="@+id/product_name"
+                    android:hint="Введіть назву"
+                    style="@style/Register_Product_Inputs" />
+            </LinearLayout>
+
+            <!-- Ціна -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Ціна" />
+                <EditText android:id="@+id/product_price"
+                    style="@style/Register_Product_Inputs"
+                    android:hint="Введіть число"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <!-- Кількість -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Кількість" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+
+                    <EditText
+                        android:id="@+id/product_quantity"
+                        style="@style/Register_Product_Inputs"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="Введіть число"/>
+
+                    <Spinner
+                        android:id="@+id/product_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Категорія -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Категорія" />
+                <Spinner
+                    android:id="@+id/product_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Введіть категорію"/>
+            </LinearLayout>
+
+            <!-- Штрих-код -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Штрих-код" />
+                <EditText
+                    android:id="@+id/product_code"
+                    style="@style/Register_Product_Inputs"
+                    android:inputType="text"
+                    android:hint="Введіть штрих-код"/>
+            </LinearLayout>
+
+            <!-- Виробник -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Виробник" />
+                <EditText
+                    android:id="@+id/product_manufacturer"
+                    style="@style/Register_Product_Inputs"
+                    android:hint="Введіть виробника продукту"/>
+            </LinearLayout>
+
+            <!-- Зображення -->
+            <LinearLayout style="@style/BaseLinearLayout">
+                <TextView style="@style/Register_Product_Labels" android:text="Зображення" />
+                <EditText
+                    android:id="@+id/product_image_url"
+                    style="@style/Register_Product_Inputs"
+                    android:hint="https://..." />
+            </LinearLayout>
+
+            <!-- Кнопка -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/register_button"
+                style="@style/Register_Product_Button"
+                android:text="Зареєструвати товар"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
