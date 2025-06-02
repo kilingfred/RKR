@@ -4,4 +4,5 @@
     <string name="products">Продукти</string>
     <string name="loading">Завантаження...</string>
     <string name="error_loading_data">Помилка завантаження даних</string>
+    <string name="passwordCompareFail">Паролі не співпадають</string>
 </resources>

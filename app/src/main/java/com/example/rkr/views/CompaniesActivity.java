@@ -1,4 +1,4 @@
-package com.example.rkr;
+package com.example.rkr.views;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rkr.R;
 import com.example.rkr.adapters.CompanyAdapter;
 import com.example.rkr.api.ApiService;
 import com.example.rkr.api.RetrofitClient; // Важливо: переконайтеся, що імпорт правильний

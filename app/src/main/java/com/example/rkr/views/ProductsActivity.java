@@ -1,4 +1,4 @@
-package com.example.rkr;
+package com.example.rkr.views;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rkr.R;
 import com.example.rkr.adapters.ProductAdapter;
 import com.example.rkr.api.ApiService;
 import com.example.rkr.api.RetrofitClient;
