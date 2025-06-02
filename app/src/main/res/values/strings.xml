@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RKR</string>
+    <string name="companies">Компанії</string>
+    <string name="products">Продукти</string>
+    <string name="loading">Завантаження...</string>
+    <string name="error_loading_data">Помилка завантаження даних</string>
 </resources>
