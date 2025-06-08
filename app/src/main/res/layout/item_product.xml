@@ -1,39 +1,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/BaseLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/productImageView"
+        style="@style/Adapters_ImageView"/>
 
     <TextView
         android:id="@+id/productNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/productPriceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/productQuantityTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/productBarCodeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/productManufacturerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        style="@style/Adapters_TextView"/>
 
 </LinearLayout>

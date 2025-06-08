@@ -1,16 +1,16 @@
 package com.example.rkr.models;
 
 public class CompanyRegisterModel {
-    private UserRegisterModel user;
-    private String name;
-    private String phone;
-    private String address;
+    private final UserModel user;
+    private final String name;
+    private final String number;
+    private final String address;
 
-    public CompanyRegisterModel(UserRegisterModel user, String name, String phone, String address) {
+    public CompanyRegisterModel(UserModel user, String name, String phone, String address) {
         this.user = user;
         this.address = address;
         this.name = name;
-        this.phone = phone;
+        this.number = phone;
     }
 
     public String getName() {
@@ -22,10 +22,10 @@ public class CompanyRegisterModel {
     }
 
     public String getPhone() {
-        return phone;
+        return number;
     }
 
-    public UserRegisterModel getUser() {
+    public UserModel getUser() {
         return user;
     }
 }

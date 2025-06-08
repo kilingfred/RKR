@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ScrollableContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <LinearLayout style="@style/AppContainer">
+
+            <LinearLayout style="@style/BaseLinearLayout">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    style="@style/Company_Logo" />
+
+                <TextView
+                    android:id="@+id/company_name"
+                    style="@style/Company_Header" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/BaseLinearLayout">
+
+                <LinearLayout
+                    style="@style/BaseLinearLayout"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/Company_Block"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            style="@style/BaseLinearLayout"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                style="@style/Company_ImageView"
+                                android:src="@drawable/address" />
+
+                            <TextView
+                                style="@style/Company_Label"
+                                android:text="Адреса" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/address"
+                            style="@style/Company_TextView"
+                            android:text="Не знайдено"/>
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/Company_Block"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            style="@style/BaseLinearLayout"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                style="@style/Company_ImageView"
+                                android:src="@drawable/telephone" />
+
+                            <TextView
+                                style="@style/Company_Label"
+                                android:text="Номер телефону" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/phone"
+                            style="@style/Company_TextView"
+                            android:text="Не знайдено" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/BaseLinearLayout"
+                    android:orientation="horizontal">
+
+                    <LinearLayout style="@style/Company_Block"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            style="@style/BaseLinearLayout"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                style="@style/Company_ImageView"
+                                android:src="@drawable/link" />
+
+                            <TextView
+                                style="@style/Company_Label"
+                                android:text="Веб сайт" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/link"
+                            style="@style/Company_TextView"
+                            android:text="Не знайдено" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/Company_Block"
+                        android:orientation="vertical">
+
+                        <LinearLayout style="@style/BaseLinearLayout"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                style="@style/Company_ImageView"
+                                android:src="@drawable/email" />
+
+                            <TextView
+                                style="@style/Company_Label"
+                                android:text="Email" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/email"
+                            style="@style/Company_TextView"
+                            android:text="Не знайдено"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/BaseLinearLayout"
+                android:layout_width="match_parent">
+
+                <TextView
+                    style="@style/Header"
+                    android:text="Про компанію" />
+
+                <TextView
+                    android:id="@+id/company_info"
+                    style="@style/Company_TextView" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/BaseLinearLayout"
+                android:layout_width="match_parent">
+
+                <TextView
+                    style="@style/Header"
+                    android:text="Продукти компанії"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    style="@style/RecycleViewer"
+                    android:id="@+id/products"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"/>
+
+            </LinearLayout>    
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

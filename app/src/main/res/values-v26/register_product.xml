@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Register_Product_Button">
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:paddingHorizontal">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/bluey_button</item>
+        <item name="android:backgroundTint">@null</item> <!-- Needed to avoid Material tinting -->
+        <item name="android:textColor">@color/buttonText</item>
+    </style>
+</resources>

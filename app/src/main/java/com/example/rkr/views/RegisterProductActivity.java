@@ -8,21 +8,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.rkr.MainActivity;
+import com.example.rkr.BaseActivity;
 import com.example.rkr.R;
 import com.example.rkr.forms.Impl.RegisterProductInterfaceImpl;
-import com.example.rkr.models.ProductModel;
+import com.example.rkr.models.Product;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterProductActivity extends MainActivity {
+public class RegisterProductActivity extends BaseActivity {
 
     RegisterProductInterfaceImpl productInterface = new RegisterProductInterfaceImpl();
 
@@ -69,7 +65,7 @@ public class RegisterProductActivity extends MainActivity {
                     Toast.makeText(RegisterProductActivity.this,"Name must be filled!", Toast.LENGTH_SHORT).show();return;
                 }
 
-                ProductModel new_model = new ProductModel(product_name, product_price, product_quantity, product_category, product_code, product_url);
+                Product new_model = new Product(product_name, product_price, product_quantity, product_category, product_code, product_url);
 
                 productInterface.register(new_model).enqueue(new Callback<Void>() {
                     @Override

@@ -1,4 +1,4 @@
-package com.example.rkr;
+package com.example.rkr.views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,13 +8,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.rkr.BaseActivity;
+import com.example.rkr.R;
 import com.example.rkr.forms.Impl.loginInterfaceImpl; // Переконайтеся, що імпорт правильний
 import com.example.rkr.forms.loginInterface; // Переконайтеся, що імпорт правильний
-import com.example.rkr.views.HomeActivity;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends BaseActivity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -55,25 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Обробник натискання кнопки реєстрації
         registerButton.setOnClickListener(v -> {
-            String username = usernameEditText.getText().toString().trim();
-            String password = passwordEditText.getText().toString().trim();
-
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Будь ласка, введіть ім'я користувача та пароль.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            boolean registered = authService.register(username, password);
-            if (registered) {
-                resultTextView.setText("Реєстрація успішна! Тепер ви можете увійти.");
-                Toast.makeText(MainActivity.this, "Реєстрація успішна!", Toast.LENGTH_SHORT).show();
-                // Очищаємо поля після успішної реєстрації
-                usernameEditText.setText("");
-                passwordEditText.setText("");
-            } else {
-                resultTextView.setText("Реєстрація не вдалася. Можливо, ім'я користувача вже зайняте.");
-                Toast.makeText(MainActivity.this, "Реєстрація не вдалася.", Toast.LENGTH_SHORT).show();
-            }
+            authService.register(MainActivity.this);
         });
 
         // Обробник натискання кнопки входу
@@ -86,25 +68,30 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            boolean loggedIn = authService.loginWithCredentials(username, password);
-            if (loggedIn) {
-                resultTextView.setText("Вхід успішний!");
-                Toast.makeText(MainActivity.this, "Вхід успішний!", Toast.LENGTH_SHORT).show();
+            ((loginInterfaceImpl)authService).loginWithCredentials(username, password, (success, user) -> {
+                runOnUiThread(() -> {
+                    if (success) {
+                        resultTextView.setText("Вхід успішний!");
+                        Toast.makeText(MainActivity.this, "Вхід успішний!", Toast.LENGTH_SHORT).show();
 
-                // Зберегти стан входу
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("isLoggedIn", true);
-                editor.putString("loggedInUsername", username); // Зберегти ім'я користувача, якщо потрібно
-                editor.apply(); // Застосувати зміни
+                        // Зберегти стан входу та додаткову інформацію про користувача
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.putString("loggedInUsername", user.getLogin()); // Save login field
+                        editor.putString("userType", user.getType() != null ? user.getType() : ""); // "COMPANY" або "CUSTOMER"
+                        editor.putString("companyName", user.getLogin()); // Use login as companyName
+                        editor.apply();
 
-                // Перехід на HomeActivity
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish(); // Завершити MainActivity після успішного входу
-            } else {
-                resultTextView.setText("Вхід не вдався. Невірне ім'я користувача або пароль.");
-                Toast.makeText(MainActivity.this, "Невірне ім'я користувача або пароль.", Toast.LENGTH_SHORT).show();
-            }
+                        // Перехід на HomeActivity
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        resultTextView.setText("Вхід не вдався. Невірне ім'я користувача або пароль.");
+                        Toast.makeText(MainActivity.this, "Невірне ім'я користувача або пароль.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
         });
 
         // Обробник натискання кнопки входу через Google (якщо реалізовано)

@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rkr.BaseActivity;
 import com.example.rkr.R;
 import com.example.rkr.adapters.CompanyAdapter;
 import com.example.rkr.api.ApiService;
 import com.example.rkr.api.RetrofitClient; // Важливо: переконайтеся, що імпорт правильний
-import com.example.rkr.models.Company;
+import com.example.rkr.models.CompanyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +23,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CompaniesActivity extends AppCompatActivity {
+public class CompaniesActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private CompanyAdapter adapter;
     private TextView titleTextView;
-    private List<Company> companyList;
+    private List<CompanyModel> companyModelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class CompaniesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.companiesRecyclerView); // Переконайтеся, що id в activity_companies.xml правильний
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        companyList = new ArrayList<>();
-        adapter = new CompanyAdapter(companyList);
+        companyModelList = new ArrayList<>();
+        adapter = new CompanyAdapter(companyModelList);
         recyclerView.setAdapter(adapter);
 
         titleTextView = findViewById(R.id.titleTextView);
@@ -62,14 +63,14 @@ public class CompaniesActivity extends AppCompatActivity {
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
 
         // Викликаємо getCompanies()
-        Call<List<Company>> call = apiService.getCompanies();
-        call.enqueue(new Callback<List<Company>>() {
+        Call<List<CompanyModel>> call = apiService.getCompanies();
+        call.enqueue(new Callback<List<CompanyModel>>() {
             @Override
-            public void onResponse(Call<List<Company>> call, Response<List<Company>> response) {
+            public void onResponse(Call<List<CompanyModel>> call, Response<List<CompanyModel>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    companyList.clear();
-                    companyList.addAll(response.body());
-                    adapter.updateCompanies(companyList);
+                    companyModelList.clear();
+                    companyModelList.addAll(response.body());
+                    adapter.updateCompanies(companyModelList);
                     titleTextView.setText(R.string.companies); // Встановіть остаточний заголовок
                     Toast.makeText(CompaniesActivity.this, "Компанії завантажено успішно!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -88,7 +89,7 @@ public class CompaniesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Company>> call, Throwable t) {
+            public void onFailure(Call<List<CompanyModel>> call, Throwable t) {
                 titleTextView.setText(R.string.error_loading_data);
                 Toast.makeText(CompaniesActivity.this, "Помилка мережі: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();

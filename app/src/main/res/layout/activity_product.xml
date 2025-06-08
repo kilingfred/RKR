@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ScrollableContainer">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.ProductActivity">
+    
+    <LinearLayout
+        style="@style/AppContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        
+        <ImageView
+            style="@style/Product_ImageView"
+            android:id="@+id/image"/>
+
+        <!-- Назва -->
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Product_Label"
+                android:text="Назва: "/>
+            <TextView
+                style="@style/Product_TextView"
+                android:id="@+id/name"/>
+
+        </LinearLayout>
+
+        <!-- Ціна -->
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Product_Label"
+                android:text="Ціна: "/>
+            <TextView
+                style="@style/Product_TextView"
+                android:id="@+id/price"/>
+
+        </LinearLayout>
+
+        <!-- Кількість -->
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Product_Label"
+                android:text="Кількість: "/>
+            <TextView
+                style="@style/Product_TextView"
+                android:id="@+id/quantity"/>
+
+        </LinearLayout>
+
+        <!-- Штрих-код -->
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Product_Label"
+                android:text="Штрих-код: "/>
+            <TextView
+                style="@style/Product_TextView"
+                android:id="@+id/bar_code"/>
+
+        </LinearLayout>
+
+        <!-- Категорія -->
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Product_Label"
+                android:text="Категорія: "/>
+            <TextView
+                style="@style/Product_TextView"
+                android:id="@+id/product_category"/>
+
+        </LinearLayout>
+
+        <!-- Виробник -->
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Product_Label"
+                android:text="Виробник: "/>
+            <TextView
+                style="@style/Product_TextView"
+                android:id="@+id/product_manufacturer"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+            <Button
+            style="@style/Product_Button"
+            android:id="@+id/edit"
+            android:text="Редагувати"/>
+
+            <Button
+                style="@style/Product_Button"
+                android:id="@+id/delete"
+                android:text="Видалити"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/BaseLinearLayout"
+            android:orientation="horizontal">
+
+        <Button
+            style="@style/Product_Button"
+            android:id="@+id/viewCompany"
+            android:text="Переглянути виробника"/>
+
+        <Button
+            style="@style/Product_Button"
+            android:id="@+id/back"
+            android:text="Назад до таблиці"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

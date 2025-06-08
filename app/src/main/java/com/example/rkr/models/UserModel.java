@@ -2,16 +2,21 @@ package com.example.rkr.models;
 
 import com.example.rkr.enums.UserTypes;
 
-public class UserRegisterModel {
+public class UserModel {
     private String login;
     private String password;
-    private UserTypes type;
+    private String type; // or UserTypes type;
     private String email;
     private Integer id;
 
-    public UserRegisterModel(String login, String password, UserTypes type, String email) {
+    public UserModel(String login, String password, String type, String email) {
         this.email = email;
         this.type = type;
+        this.login = login;
+        this.password = password;
+    }
+
+    public UserModel(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -32,7 +37,7 @@ public class UserRegisterModel {
         return email;
     }
 
-    public UserTypes getType() {
+    public String getType() {
         return type;
     }
 

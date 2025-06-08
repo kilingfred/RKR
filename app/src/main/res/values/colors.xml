@@ -11,4 +11,6 @@
     <color name="leftBorderInRegister_Company">#007bff</color>
     <color name="grayBorderForInputs">#ddd</color>
     <color name="backgroundForRegister_Company">#f8f9fa</color>
+    <color name="gray_background_block">#f8f9fa</color>
+    <color name="white">#FFFFFF</color>
 </resources>

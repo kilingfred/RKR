@@ -10,25 +10,22 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.rkr.MainActivity;
+import com.example.rkr.BaseActivity;
 import com.example.rkr.R;
 import com.example.rkr.enums.UserTypes;
 import com.example.rkr.forms.Impl.RegisterInterfaceImpl;
-import com.example.rkr.forms.RegisterInterface;
 import com.example.rkr.models.CompanyRegisterModel;
-import com.example.rkr.models.UserRegisterModel;
-import com.example.rkr.network.ApiClient;
+import com.example.rkr.models.UserModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends MainActivity {
+public class RegisterActivity extends BaseActivity {
 
     private final RegisterInterfaceImpl registerInterface = new RegisterInterfaceImpl();
 
@@ -74,7 +71,7 @@ public class RegisterActivity extends MainActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserTypes userType = (UserTypes) accountTypeSpinner.getSelectedItem();
+                String userType = accountTypeSpinner.getSelectedItem().toString();
                 String login = loginEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
@@ -92,8 +89,8 @@ public class RegisterActivity extends MainActivity {
                     return;
                 }
 
-                UserRegisterModel userModel;
-                if (userType == UserTypes.COMPANY) {
+                UserModel userModel;
+                if (userType.equals(UserTypes.COMPANY.getValue())) {
                     String companyName = companyNameEditText.getText().toString();
                     String companyAddress = companyAddressEditText.getText().toString();
                     String companyPhone = companyPhoneEditText.getText().toString();
@@ -102,7 +99,7 @@ public class RegisterActivity extends MainActivity {
                     if(companyAddress.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
                     if(companyPhone.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
 
-                    userModel = new UserRegisterModel(login, password, userType, email);
+                    userModel = new UserModel(login, password, userType, email);
                     CompanyRegisterModel companyModel = new CompanyRegisterModel(userModel,companyName, companyAddress, companyPhone);
                     registerInterface.registerCompany(companyModel,new Callback<Void>() {
                         @Override
@@ -122,7 +119,7 @@ public class RegisterActivity extends MainActivity {
                     });
 
                 } else {
-                    userModel = new UserRegisterModel(login, password, userType, email);
+                    userModel = new UserModel(login, password, userType, email);
                     registerInterface.registerUser(userModel, new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {

@@ -8,19 +8,25 @@ public class Product {
     private int id; // Додайте це поле
 
     @SerializedName("name")
-    private String name;
+    private final String name;
 
     @SerializedName("price")
-    private String price; // Залишаємо String
+    private final String price; // Залишаємо String
 
     @SerializedName("quantity")
-    private String quantity; // Залишаємо String
+    private final String quantity; // Залишаємо String
 
     @SerializedName("bar_code")
-    private String barCode;
+    private final String barCode;
+
+    @SerializedName("category")
+    private final String category;
 
     @SerializedName("manufacturer")
     private String manufacturer;
+
+    @SerializedName("images")
+    private final String imageUrl;
 
     // Геттери для всіх полів
     public int getId() { // Додайте геттер для id
@@ -45,6 +51,34 @@ public class Product {
 
     public String getManufacturer() {
         return manufacturer;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public Product(Integer id, String name, String price, String quantity, String category, String bar_code, String manufacturer, String images) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.barCode = bar_code;
+        this.manufacturer = manufacturer;
+        this.imageUrl = images;
+    }
+
+    public Product(String name, String price, String quantity, String category, String bar_code, String images) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.barCode = bar_code;
+        this.imageUrl = images;
     }
 
     @Override

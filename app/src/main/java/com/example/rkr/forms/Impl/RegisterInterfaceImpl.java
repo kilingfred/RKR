@@ -1,11 +1,10 @@
 package com.example.rkr.forms.Impl;
 
+import com.example.rkr.api.RetrofitClient;
 import com.example.rkr.forms.RegisterInterface;
 import com.example.rkr.models.CompanyRegisterModel;
-import com.example.rkr.models.UserRegisterModel;
-import com.example.rkr.network.ApiClient;
+import com.example.rkr.models.UserModel;
 
-import retrofit2.Call;
 import retrofit2.Callback;
 
 public class RegisterInterfaceImpl {
@@ -13,10 +12,10 @@ public class RegisterInterfaceImpl {
         private final RegisterInterface registerApi;
 
         public RegisterInterfaceImpl() {
-            registerApi = ApiClient.getRetrofit().create(RegisterInterface.class);
+            registerApi = RetrofitClient.getRetrofitInstance().create(RegisterInterface.class);
         }
 
-        public void registerUser(UserRegisterModel model, Callback<Void> callback) {
+        public void registerUser(UserModel model, Callback<Void> callback) {
             registerApi.registerUser(model).enqueue(callback);
         }
 

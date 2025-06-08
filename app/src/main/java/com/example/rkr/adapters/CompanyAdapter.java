@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rkr.R;
-import com.example.rkr.models.Company;
+import com.example.rkr.models.CompanyModel;
 
 import java.util.List;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
 
-    private List<Company> companies;
+    private List<CompanyModel> companies;
 
-    public CompanyAdapter(List<Company> companies) {
+    public CompanyAdapter(List<CompanyModel> companies) {
         this.companies = companies;
     }
 
@@ -30,10 +30,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
 
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
-        Company company = companies.get(position);
-        holder.nameTextView.setText(company.getName());
-        holder.addressTextView.setText(String.format("Адреса: %s", company.getAddress()));
-        holder.emailTextView.setText(String.format("Електронна пошта: %s", company.getEmail()));
+        CompanyModel companyModel = companies.get(position);
+        holder.nameTextView.setText(companyModel.getName());
+        holder.addressTextView.setText(String.format("Адреса: %s", companyModel.getAddress()));
+        holder.emailTextView.setText(String.format("Електронна пошта: %s", companyModel.getEmail()));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         return companies.size();
     }
 
-    public void updateCompanies(List<Company> newCompanies) {
+    public void updateCompanies(List<CompanyModel> newCompanies) {
         this.companies = newCompanies;
         notifyDataSetChanged();
     }

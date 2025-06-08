@@ -1,14 +1,18 @@
 package com.example.rkr.adapters;
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.rkr.R;
 import com.example.rkr.models.Product;
 
@@ -17,9 +21,22 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> products;
+    private static final int VIEW_TYPE_ITEM = 0;
+    private static final int VIEW_TYPE_FOOTER = 1;
+    private static final String TAG = "ProductAdapter";
 
     public ProductAdapter(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public int getItemCount() {
+        return products.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return VIEW_TYPE_ITEM;
     }
 
     @NonNull
@@ -29,27 +46,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
+    public interface OnProductClickListener {
+        void onProductClick(Product product);
+    }
+
+    private OnProductClickListener listener;
+
+    public void setOnProductClickListener(OnProductClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = products.get(position);
+        Log.d(TAG, "Binding: " + product.getName());
+        Glide.with(holder.imageView.getContext())
+                .load(product.getImageUrl())
+                .placeholder(R.drawable.placeholder)
+                .into(holder.imageView);
         holder.nameTextView.setText(product.getName());
-        // Залишаємо форматування, оскільки це все ще рядок для виведення
-        holder.priceTextView.setText(String.format("Ціна: %s грн", product.getPrice()));
-        holder.quantityTextView.setText(String.format("Об’єм: %s", product.getQuantity()));
-        holder.barCodeTextView.setText(String.format("Штрих-код: %s", product.getBarCode()));
-        holder.manufacturerTextView.setText(String.format("Виробник: %s", product.getManufacturer()));
-    }
-
-    @Override
-    public int getItemCount() {
-        return products.size();
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onProductClick(product);
+        });
     }
 
     public void updateProducts(List<Product> newProducts) {
-        ProductDiffCallback diffCallback = new ProductDiffCallback(this.products, newProducts);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
         this.products = newProducts;
-        diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
+        Log.d(TAG, "Adapter item count after update: " + getItemCount());
     }
 
     static class ProductDiffCallback extends DiffUtil.Callback {
@@ -85,18 +109,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
-        TextView priceTextView;
-        TextView quantityTextView;
-        TextView barCodeTextView;
-        TextView manufacturerTextView;
+        ImageView imageView;
 
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.productNameTextView);
-            priceTextView = itemView.findViewById(R.id.productPriceTextView);
-            quantityTextView = itemView.findViewById(R.id.productQuantityTextView);
-            barCodeTextView = itemView.findViewById(R.id.productBarCodeTextView);
-            manufacturerTextView = itemView.findViewById(R.id.productManufacturerTextView);
+            imageView = itemView.findViewById(R.id.productImageView);
         }
     }
 }
