@@ -11,7 +11,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_gravity">center</item>
-
+        <item name="android:textSize">10sp</item>
     </style>
     <style name="Company_Logo">
         <item name="android:layout_height">200dp</item>
@@ -31,15 +31,15 @@
     <style name="Company_Label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="Company_ImageView">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="android:layout_gravity">center</item>
