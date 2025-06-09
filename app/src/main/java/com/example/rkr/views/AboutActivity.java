@@ -12,6 +12,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHeader("Про нас");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_about);
     }

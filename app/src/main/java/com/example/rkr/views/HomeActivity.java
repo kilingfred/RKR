@@ -15,7 +15,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        setHeader("Головне меню");
         Button productsButton = findViewById(R.id.productsButton);
         Button companiesButton = findViewById(R.id.companiesButton);
 

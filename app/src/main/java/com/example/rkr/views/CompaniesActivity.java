@@ -35,6 +35,7 @@ public class CompaniesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_companies);
 
+        setHeader("Список компаній");
         // Перевірка стану входу
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);

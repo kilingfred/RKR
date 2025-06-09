@@ -13,4 +13,7 @@
     <color name="backgroundForRegister_Company">#f8f9fa</color>
     <color name="gray_background_block">#f8f9fa</color>
     <color name="white">#FFFFFF</color>
+    <color name="header_gradient_start">#4BEFFF</color>
+    <color name="header_gradient_end">#2196F3</color>
+    <color name="header_navblock">#1AFFFFFF</color>
 </resources>

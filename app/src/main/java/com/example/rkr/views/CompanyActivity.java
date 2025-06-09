@@ -46,6 +46,7 @@ public class CompanyActivity extends BaseActivity {
 
         Intent intent = this.getIntent();
         String company = intent.getStringExtra("company");
+        setHeader("Компанія " + company);
 
         ImageView logo = findViewById(R.id.logo);
         TextView name = findViewById(R.id.company_name);
@@ -63,22 +64,32 @@ public class CompanyActivity extends BaseActivity {
             public void onResponse(Call<CompanyModel> call, Response<CompanyModel> response) {
                 if (!CompanyActivity.this.isFinishing() && !CompanyActivity.this.isDestroyed()) {
                     if (response.isSuccessful() && response.body() != null) {
-                        name.setText(response.body().getName());
-                        address.setText(response.body().getAddress());
-                        phone.setText(response.body().getPhone());
-                        link.setText(response.body().getLink());
-                        email.setText(response.body().getEmail());
-                        info.setText(response.body().getInfo());
-                        Glide.with(CompanyActivity.this).load(response.body().getLogo()).into(logo);
+                        CompanyModel company = response.body();
+                        Log.d("CompanyActivity", "Company response: " + new Gson().toJson(company));
+                        name.setText(company.getName() != null ? company.getName() : "N/A");
+                        address.setText(company.getAddress() != null ? company.getAddress() : "N/A");
+                        phone.setText(company.getPhone() != null ? company.getPhone() : "N/A");
+                        link.setText(company.getLink() != null ? company.getLink() : "N/A");
+                        email.setText(company.getEmail() != null ? company.getEmail() : "N/A");
+                        info.setText(company.getInfo() != null ? company.getInfo() : "N/A");
+                        if (company.getLogo() != null && !company.getLogo().isEmpty()) {
+                            Glide.with(getApplicationContext()).load(company.getLogo()).into(logo);
+                        } else {
+                            logo.setImageResource(R.drawable.placeholder);
+                        }
                     } else {
-                        Log.e("getCompanyError", "Company data is null or response not successful");
+                        Log.e("getCompanyError", "Response not successful or body is null: " + response.code());
+                        Toast.makeText(CompanyActivity.this, "Failed to load company data", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<CompanyModel> call, Throwable t) {
-                Log.e("getCompanyError","Couldn't set fields" + t.getMessage());
+                Log.e("getCompanyError", "Couldn't set fields: " + t.getMessage());
+                if (!CompanyActivity.this.isFinishing() && !CompanyActivity.this.isDestroyed()) {
+                    Toast.makeText(CompanyActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -87,29 +98,34 @@ public class CompanyActivity extends BaseActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
         recyclerView.setLayoutManager(layoutManager);
 
-        // Fetch products for this company
         Call<List<Product>> productsCall = apiService.getCompanyProducts(company);
 
         productsCall.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Product> productList = response.body();
-                    ProductAdapter productAdapter = new ProductAdapter(productList);
-                    productAdapter.setOnProductClickListener(product -> {
-                        Intent intent = new Intent(CompanyActivity.this, ProductActivity.class);
-                        intent.putExtra("product", new Gson().toJson(product));
-                        startActivity(intent);
-                    });
-                    recyclerView.setAdapter(productAdapter);
-                } else {
-                    Log.e("CompanyActivity", "No products found or error in response");
+                if (!CompanyActivity.this.isFinishing() && !CompanyActivity.this.isDestroyed()) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<Product> productList = response.body();
+                        ProductAdapter productAdapter = new ProductAdapter(productList);
+                        productAdapter.setOnProductClickListener(product -> {
+                            Intent intent = new Intent(CompanyActivity.this, ProductActivity.class);
+                            intent.putExtra("product", new Gson().toJson(product));
+                            startActivity(intent);
+                        });
+                        recyclerView.setAdapter(productAdapter);
+                    } else {
+                        Log.e("CompanyActivity", "No products found or error in response: " + response.code());
+                        Toast.makeText(CompanyActivity.this, "Failed to load products", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Log.e("CompanyActivity", "Failed to fetch products: " + t.getMessage());
+                if (!CompanyActivity.this.isFinishing() && !CompanyActivity.this.isDestroyed()) {
+                    Toast.makeText(CompanyActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

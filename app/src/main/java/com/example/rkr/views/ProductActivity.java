@@ -36,6 +36,7 @@ public class ProductActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_product);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,6 +46,12 @@ public class ProductActivity extends BaseActivity {
         Intent intent = this.getIntent();
         String productJson = intent.getStringExtra("product");
         Product product = new Gson().fromJson(productJson, Product.class);
+
+        String productName = product.getName();
+        if (productName != null && productName.length() > 20) {
+            productName = productName.substring(0, 20) + "...";
+        }
+        setHeader("Продукт " + productName);
 
         // Find views and set data
         ((TextView)findViewById(R.id.name)).setText(product.getName());

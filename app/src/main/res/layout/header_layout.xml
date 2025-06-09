@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout style="@style/Header_Container"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageButton
+        style="@style/Header_imageView"
+        android:id="@+id/imgButton1"
+        android:src="@drawable/nash_cash1"/>
+
+    <TextView
+        style="@style/Header_Label"
+        android:id="@+id/header_title"
+        android:text="Unknown"/>
+
+    <LinearLayout
+       style="@style/Header_Block_Layout"
+        android:id="@+id/block_layout">
+
+        <TextView
+            style="@style/Header_NavBlock"
+            android:text="Реєстрація товару"
+            android:id="@+id/register_product"/>
+
+        <TextView
+            style="@style/Header_NavBlock"
+            android:text="Головне меню"
+            android:id="@+id/main_menu"/>
+
+        <TextView
+            style="@style/Header_NavBlock"
+            android:id="@+id/log_out"
+            android:text="Вийти" />
+
+    </LinearLayout>
+</LinearLayout>

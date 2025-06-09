@@ -15,6 +15,9 @@
         android:theme="@style/Theme.RKR"
         tools:targetApi="31">
         <activity
+            android:name=".views.RegisterProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.RegisterActivity"
             android:exported="false" />
         <activity

@@ -27,7 +27,7 @@ public class RegisterProductActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register_product);
-
+        setHeader("Реєстрація продукту");
         EditText name = findViewById(R.id.product_name);
         EditText price = findViewById(R.id.product_price);
         EditText bar_code = findViewById(R.id.product_code);

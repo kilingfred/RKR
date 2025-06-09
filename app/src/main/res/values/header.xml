@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Header_Label">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_weight">1.5</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="Header_Container">
+        <item name="android:background">@drawable/header_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:weightSum">5</item>
+    </style>
+    <style name="Header_NavBlock">
+        <item name="android:background">@drawable/header_navblock</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item> <!-- Changed from match_parent -->
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:gravity">center_vertical</item> <!-- Ensure vertical centering -->
+    </style>
+    <style name="Header_Block_Layout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item> <!-- Changed from match_parent -->
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_weight">2.5</item>
+    </style>
+    <style name="Header_imageView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item> <!-- Slightly increased for balance -->
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+</resources>

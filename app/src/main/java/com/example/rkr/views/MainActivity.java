@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // Ваш XML-файл для екрану входу/реєстрації
-
+        setHeader("Логін");
         // Перевірка, чи користувач вже увійшов
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
             // Якщо користувач вже увійшов, переходимо на HomeActivity
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
+            updateHeader(prefs.getString("userType", null));
             finish(); // Завершуємо поточну активність, щоб користувач не міг повернутися назад
             return; // Виходимо з onCreate
         }

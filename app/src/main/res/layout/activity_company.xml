@@ -134,7 +134,7 @@
                 android:layout_width="match_parent">
 
                 <TextView
-                    style="@style/Header"
+                    style="@style/Company_Header"
                     android:text="Про компанію" />
 
                 <TextView
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent">
 
                 <TextView
-                    style="@style/Header"
+                    style="@style/Company_Header"
                     android:text="Продукти компанії"/>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -156,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"/>
 
-            </LinearLayout>    
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
