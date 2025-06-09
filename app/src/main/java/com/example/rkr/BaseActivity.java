@@ -1,6 +1,7 @@
 package com.example.rkr;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -77,6 +78,10 @@ public class BaseActivity extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
                 Intent intent = new Intent(BaseActivity.this, MainActivity.class);
                 startActivity(intent);
             }

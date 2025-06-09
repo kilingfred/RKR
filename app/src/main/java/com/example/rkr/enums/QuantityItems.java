@@ -2,22 +2,26 @@ package com.example.rkr.enums;
 
 import androidx.annotation.NonNull;
 
-public enum UserTypes {
-    USER("user"),
-    COMPANY("company");
+public enum QuantityItems {
+    ITEM("шт."),
+    PACKAGE("уп."),
+    LITER("л"),
+    GRAM("г");
+
 
     private final String value;
 
-    UserTypes(String user) {
-        this.value = user;
+    QuantityItems(String field) {
+        this.value = field;
     }
+
 
     public String getValue() {
         return value;
     }
 
-    public static UserTypes fromString(String value) {
-        for (UserTypes type : UserTypes.values()) {
+    public static QuantityItems fromString(String value) {
+        for (QuantityItems type : QuantityItems.values()) {
             if (type.value.equalsIgnoreCase(value)) {
                 return type;
             }

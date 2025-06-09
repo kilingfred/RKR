@@ -94,7 +94,7 @@ public class CompanyActivity extends BaseActivity {
         });
 
         RecyclerView recyclerView = findViewById(R.id.products);
-        int spanCount = 3; // 3 items per row
+       int spanCount = 1; // 3 items per row
         GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
         recyclerView.setLayoutManager(layoutManager);
 

@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateHeader(null);
         setContentView(R.layout.activity_main); // Ваш XML-файл для екрану входу/реєстрації
         setHeader("Логін");
         // Перевірка, чи користувач вже увійшов

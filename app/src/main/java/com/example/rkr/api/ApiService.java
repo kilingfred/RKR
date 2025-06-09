@@ -1,5 +1,6 @@
 package com.example.rkr.api;
 
+import com.example.rkr.models.Categories;
 import com.example.rkr.models.CompanyModel;
 import com.example.rkr.models.Product;
 import com.example.rkr.models.UserModel;
@@ -25,6 +26,9 @@ public interface ApiService {
 
     @GET("products/{id}")
     Call<Product> getProduct(@Path("id") int productId);
+
+    @GET("categories")
+    Call<List<Categories>> getCategories();
 
     @GET("products/by-manufacturer/{manufacturer}")
     Call<List<Product>> getCompanyProducts(@Path("manufacturer") String manufacturer);

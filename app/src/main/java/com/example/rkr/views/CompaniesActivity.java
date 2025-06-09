@@ -1,5 +1,6 @@
 package com.example.rkr.views;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.example.rkr.adapters.CompanyAdapter;
 import com.example.rkr.api.ApiService;
 import com.example.rkr.api.RetrofitClient; // Важливо: переконайтеся, що імпорт правильний
 import com.example.rkr.models.CompanyModel;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,11 @@ public class CompaniesActivity extends BaseActivity {
         adapter = new CompanyAdapter(companyModelList);
         recyclerView.setAdapter(adapter);
 
-        titleTextView = findViewById(R.id.titleTextView);
-        titleTextView.setText(R.string.loading); // Можна встановити "Завантаження..."
+        adapter.setOnCompanyClickListener(company -> {
+            Intent intent = new Intent(CompaniesActivity.this, CompanyActivity.class);
+            intent.putExtra("company", company.getName()); // or use Parcelable/Serializable
+            startActivity(intent);
+        });
 
         // Завантаження компаній
         loadCompanies();
@@ -72,7 +77,7 @@ public class CompaniesActivity extends BaseActivity {
                     companyModelList.clear();
                     companyModelList.addAll(response.body());
                     adapter.updateCompanies(companyModelList);
-                    titleTextView.setText(R.string.companies); // Встановіть остаточний заголовок
+//                    titleTextView.setText(R.string.companies); // Встановіть остаточний заголовок
                     Toast.makeText(CompaniesActivity.this, "Компанії завантажено успішно!", Toast.LENGTH_SHORT).show();
                 } else {
                     titleTextView.setText(R.string.error_loading_data);

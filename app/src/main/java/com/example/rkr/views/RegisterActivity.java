@@ -20,6 +20,7 @@ import com.example.rkr.enums.UserTypes;
 import com.example.rkr.forms.Impl.RegisterInterfaceImpl;
 import com.example.rkr.models.CompanyRegisterModel;
 import com.example.rkr.models.UserModel;
+import com.example.rkr.forms.RegisterInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +36,7 @@ public class RegisterActivity extends BaseActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
         setHeader("Реєстрація користувача");
+        updateHeader(null);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,12 +51,9 @@ public class RegisterActivity extends BaseActivity {
         EditText emailEditText = findViewById(R.id.account_email);
         EditText passwordEditText = findViewById(R.id.account_password);
         EditText confirmPasswordEditText = findViewById(R.id.account_approve);
-
         EditText companyNameEditText = findViewById(R.id.company_name);
         EditText companyAddressEditText = findViewById(R.id.company_address);
         EditText companyPhoneEditText = findViewById(R.id.company_phone);
-
-
         View companyLayout = findViewById(R.id.company_layout);
 
         accountTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -78,66 +77,82 @@ public class RegisterActivity extends BaseActivity {
                 String password = passwordEditText.getText().toString();
                 String confirmPassword = confirmPasswordEditText.getText().toString();
 
-                if(login.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
-                if(email.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
-                if(password.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
-                if(confirmPassword.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
-
-                if(password.length() < 6) {Toast.makeText(RegisterActivity.this,"Password must contain at least 6 characters!", Toast.LENGTH_SHORT).show();return;}
-
+                if (login.isBlank()) { Toast.makeText(RegisterActivity.this, "Login field must be filled!", Toast.LENGTH_SHORT).show(); return; }
+                if (email.isBlank()) { Toast.makeText(RegisterActivity.this, "Email field must be filled!", Toast.LENGTH_SHORT).show(); return; }
+                if (password.isBlank()) { Toast.makeText(RegisterActivity.this, "Password field must be filled!", Toast.LENGTH_SHORT).show(); return; }
+                if (confirmPassword.isBlank()) { Toast.makeText(RegisterActivity.this, "Repeat Password field must be filled!", Toast.LENGTH_SHORT).show(); return; }
+                if (password.length() < 6) { Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters!", Toast.LENGTH_SHORT).show(); return; }
                 if (!password.equals(confirmPassword)) {
                     Toast.makeText(RegisterActivity.this, R.string.passwordCompareFail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                UserModel userModel;
-                if (userType.equals(UserTypes.COMPANY.getValue())) {
-                    String companyName = companyNameEditText.getText().toString();
-                    String companyAddress = companyAddressEditText.getText().toString();
-                    String companyPhone = companyPhoneEditText.getText().toString();
+                // Fetch the last ID and register
+                registerInterface.getLastUserId().enqueue(new Callback<RegisterInterface.LastIdResponse>() {
+                    @Override
+                    public void onResponse(Call<RegisterInterface.LastIdResponse> call, Response<RegisterInterface.LastIdResponse> response) {
+                        if (response.isSuccessful()) {
+                            int lastId = response.body().getLastId();
+                            int newId = lastId + 1;
 
-                    if(companyName.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
-                    if(companyAddress.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
-                    if(companyPhone.isBlank()) {Toast.makeText(RegisterActivity.this,"Login field must be filled!", Toast.LENGTH_SHORT).show();return;}
+                            if (userType.equals(UserTypes.COMPANY.getValue())) {
+                                String companyName = companyNameEditText.getText().toString();
+                                String companyAddress = companyAddressEditText.getText().toString();
+                                String companyPhone = companyPhoneEditText.getText().toString();
 
-                    userModel = new UserModel(login, password, userType, email);
-                    CompanyRegisterModel companyModel = new CompanyRegisterModel(userModel,companyName, companyAddress, companyPhone);
-                    registerInterface.registerCompany(companyModel,new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Company registered successfully", Toast.LENGTH_SHORT).show();
-                                finish();
+                                if (companyName.isBlank() || companyAddress.isBlank() || companyPhone.isBlank()) {
+                                    Toast.makeText(RegisterActivity.this, "All company fields must be filled!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                CompanyRegisterModel companyModel = new CompanyRegisterModel(
+                                        newId, userType, login, email, password, companyName, companyAddress, companyPhone
+                                );
+                                registerInterface.registerCompany(companyModel, new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        if (response.isSuccessful()) {
+                                            Toast.makeText(RegisterActivity.this, "Company registered successfully", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(RegisterActivity.this, "Registration failed: " + response.code() + " - " + response.message(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                        Toast.makeText(RegisterActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             } else {
-                                Toast.makeText(RegisterActivity.this, "Registration failed: " + response.code(), Toast.LENGTH_SHORT).show();
+                                UserModel userModel = new UserModel(newId, userType, login, email, password);
+                                registerInterface.registerUser(userModel, new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        if (response.isSuccessful()) {
+                                            Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(RegisterActivity.this, "Registration failed: " + response.code() + " - " + response.message(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                        Toast.makeText(RegisterActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Failed to fetch last ID: " + response.code() + " - " + response.message(), Toast.LENGTH_SHORT).show();
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(RegisterActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                } else {
-                    userModel = new UserModel(login, password, userType, email);
-                    registerInterface.registerUser(userModel, new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                Toast.makeText(RegisterActivity.this, "Registration failed: " + response.code(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(RegisterActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
+                    @Override
+                    public void onFailure(Call<RegisterInterface.LastIdResponse> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }

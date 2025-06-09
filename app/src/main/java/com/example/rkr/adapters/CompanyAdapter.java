@@ -1,15 +1,19 @@
 package com.example.rkr.adapters;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.rkr.R;
 import com.example.rkr.models.CompanyModel;
+import com.example.rkr.models.Product;
 
 import java.util.List;
 
@@ -28,12 +32,27 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         return new CompanyViewHolder(view);
     }
 
+    public interface OnCompanyClickListener {
+        void onCompanyClick(CompanyModel companyModel);
+    }
+
+    private OnCompanyClickListener listener;
+
+    public void setOnCompanyClickListener(OnCompanyClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
         CompanyModel companyModel = companies.get(position);
         holder.nameTextView.setText(companyModel.getName());
-        holder.addressTextView.setText(String.format("Адреса: %s", companyModel.getAddress()));
-        holder.emailTextView.setText(String.format("Електронна пошта: %s", companyModel.getEmail()));
+        Glide.with(holder.imageView.getContext())
+                .load(companyModel.getLogo())
+                .placeholder(R.drawable.placeholder)
+                .into(holder.imageView);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onCompanyClick(companyModel);
+        });
     }
 
     @Override
@@ -48,14 +67,12 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
 
     static class CompanyViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
-        TextView addressTextView;
-        TextView emailTextView;
+        ImageView imageView;
 
         CompanyViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.companyNameTextView);
-            addressTextView = itemView.findViewById(R.id.companyAddressTextView);
-            emailTextView = itemView.findViewById(R.id.companyEmailTextView);
+            imageView = itemView.findViewById(R.id.companyLogo);
         }
     }
 }

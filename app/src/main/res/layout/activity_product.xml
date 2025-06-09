@@ -2,12 +2,12 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ScrollableContainer">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".views.ProductActivity">
     
     <LinearLayout
@@ -130,10 +130,10 @@
         <Button
             style="@style/Product_Button"
             android:id="@+id/back"
-            android:text="Назад до таблиці"/>
+            android:text="До таблиці продуктів"/>
         </LinearLayout>
     </LinearLayout>
-    
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

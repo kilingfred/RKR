@@ -1,20 +1,20 @@
 package com.example.rkr.models;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.Objects; // Додайте цей імпорт
+import java.util.Objects;
 
 public class Product {
     @SerializedName("id")
-    private int id; // Додайте це поле
+    private Integer id; // Use Integer to allow null if not set by app
 
     @SerializedName("name")
     private final String name;
 
     @SerializedName("price")
-    private final String price; // Залишаємо String
+    private final String price;
 
     @SerializedName("quantity")
-    private final String quantity; // Залишаємо String
+    private final String quantity;
 
     @SerializedName("bar_code")
     private final String barCode;
@@ -28,66 +28,40 @@ public class Product {
     @SerializedName("images")
     private final String imageUrl;
 
-    // Геттери для всіх полів
-    public int getId() { // Додайте геттер для id
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public String getBarCode() {
-        return barCode;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public Product(Integer id, String name, String price, String quantity, String category, String bar_code, String manufacturer, String images) {
+    public Product(Integer id, String name, String price, String quantity, String category, String barCode, String manufacturer, String imageUrl) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-        this.barCode = bar_code;
+        this.barCode = barCode;
         this.manufacturer = manufacturer;
-        this.imageUrl = images;
+        this.imageUrl = imageUrl;
     }
 
-    public Product(String name, String price, String quantity, String category, String bar_code, String images) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.category = category;
-        this.barCode = bar_code;
-        this.imageUrl = images;
+    public Product(String name, String price, String quantity, String category, String barCode, String manufacturer, String imageUrl) {
+        this(null, name, price, quantity, category, barCode, manufacturer, imageUrl); // Default id to null
     }
+
+    // Getters
+    public Integer getId() { return id; }
+    public String getName() { return name; }
+    public String getPrice() { return price; }
+    public String getQuantity() { return quantity; }
+    public String getBarCode() { return barCode; }
+    public String getManufacturer() { return manufacturer; }
+    public String getCategory() { return category; }
+    public String getImageUrl() { return imageUrl; }
+
+    // Setter for id (if needed by server response)
+    public void setId(Integer id) { this.id = id; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        // Порівняння за id є надійнішим, якщо id унікальний
-        return id == product.id &&
+        return Objects.equals(id, product.id) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(price, product.price) &&
                 Objects.equals(quantity, product.quantity) &&
