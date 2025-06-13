@@ -114,6 +114,8 @@ public class BaseActivity extends AppCompatActivity {
     public void updateHeader(String userModel) {
         LinearLayout blockLayout = findViewById(R.id.block_layout);
         TextView register_product = findViewById(R.id.register_product);
+        SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
+        userModel = prefs.getString("userType", null);
         if(userModel != null) {
             blockLayout.setVisibility(View.VISIBLE);
             if(userModel.equals(UserTypes.COMPANY.getValue())){

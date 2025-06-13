@@ -6,9 +6,8 @@ import com.example.rkr.models.CompanyRegisterModel;
 import com.example.rkr.models.UserModel;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 
-public class RegisterInterfaceImpl {
+public class RegisterInterfaceImpl implements RegisterInterface {
 
     private final RegisterInterface registerApi;
 
@@ -16,13 +15,16 @@ public class RegisterInterfaceImpl {
         registerApi = RetrofitClient.getRetrofitInstance().create(RegisterInterface.class);
     }
 
-    public void registerUser(UserModel model, Callback<Void> callback) {
-        registerApi.registerUser(model).enqueue(callback);
+    @Override
+    public Call<Void> registerUser(UserModel model) {
+        return registerUser(model);
     }
 
-    public void registerCompany(CompanyRegisterModel model, Callback<Void> callback) {
-        registerApi.registerCompany(model).enqueue(callback);
+    @Override
+    public Call<Void> registerCompany(CompanyRegisterModel model) {
+        return registerCompany(model);
     }
+
 
     public Call<RegisterInterface.LastIdResponse> getLastUserId() {
         return registerApi.getLastUserId();

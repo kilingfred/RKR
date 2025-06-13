@@ -45,8 +45,8 @@ public class ProductsActivity extends BaseActivity {
 
         // Set click listener
         adapter.setOnProductClickListener(product -> {
-            Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
-            intent.putExtra("product", new Gson().toJson(product)); // or use Parcelable/Serializable
+            Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);// or use Parcelable/Serializable
+            intent.putExtra("product", new Gson().toJson(product));
             startActivity(intent);
         });
 

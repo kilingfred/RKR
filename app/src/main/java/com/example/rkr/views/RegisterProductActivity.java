@@ -1,5 +1,6 @@
 package com.example.rkr.views;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +43,8 @@ public class RegisterProductActivity extends BaseActivity {
         setContentView(R.layout.activity_register_product);
         setHeader("Реєстрація продукту");
 
+        SharedPreferences pref = getSharedPreferences("auth", MODE_PRIVATE);
+        String company_name = pref.getString("companyName", "");
         EditText name = findViewById(R.id.product_name);
         EditText price = findViewById(R.id.product_price);
         EditText barCode = findViewById(R.id.product_code);
@@ -50,6 +53,7 @@ public class RegisterProductActivity extends BaseActivity {
         EditText url = findViewById(R.id.product_image_url);
         EditText quantity = findViewById(R.id.product_quantity);
         EditText manufacturer = findViewById(R.id.product_manufacturer); // Added from XML
+        manufacturer.setText(company_name);
 
         ArrayAdapter<QuantityItems> unitAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, QuantityItems.values());
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

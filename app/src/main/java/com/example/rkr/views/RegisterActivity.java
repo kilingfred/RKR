@@ -108,7 +108,7 @@ public class RegisterActivity extends BaseActivity {
                                 CompanyRegisterModel companyModel = new CompanyRegisterModel(
                                         newId, userType, login, email, password, companyName, companyAddress, companyPhone
                                 );
-                                registerInterface.registerCompany(companyModel, new Callback<Void>() {
+                                registerInterface.registerCompany(companyModel).enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         if (response.isSuccessful()) {
@@ -126,7 +126,7 @@ public class RegisterActivity extends BaseActivity {
                                 });
                             } else {
                                 UserModel userModel = new UserModel(newId, userType, login, email, password);
-                                registerInterface.registerUser(userModel, new Callback<Void>() {
+                                registerInterface.registerUser(userModel).enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         if (response.isSuccessful()) {

@@ -47,6 +47,7 @@ public class ProductActivity extends BaseActivity {
         String productJson = intent.getStringExtra("product");
         Product product = new Gson().fromJson(productJson, Product.class);
 
+        if(product == null) Toast.makeText(this, "Json is null", Toast.LENGTH_SHORT).show();
         String productName = product.getName();
         if (productName != null && productName.length() > 20) {
             productName = productName.substring(0, 20) + "...";
@@ -68,6 +69,7 @@ public class ProductActivity extends BaseActivity {
         Button editButton = findViewById(R.id.edit);
         Button deleteButton = findViewById(R.id.delete);
 
+
         gotoCompany.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +84,7 @@ public class ProductActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(ProductActivity.this, ProductsActivity.class);
+                intent1.putExtra("name", product.getName());
                 startActivity(intent1);
             }
         });
@@ -102,8 +105,13 @@ public class ProductActivity extends BaseActivity {
             deleteButton.setVisibility(View.GONE);
         }
 
-        editButton.setOnClickListener(v -> {
-
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ProductActivity.this, EditActivity.class);
+                intent1.putExtra("product", new Gson().toJson(product));
+                startActivity(intent1);
+            }
         });
         deleteButton.setOnClickListener(v -> {
             ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);

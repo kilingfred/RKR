@@ -6,11 +6,16 @@ import com.example.rkr.models.Product;
 
 import retrofit2.Call;
 
-public class RegisterProductInterfaceImpl {
+public class RegisterProductInterfaceImpl implements RegisterProductInterface {
     private final RegisterProductInterface productInterface;
 
     public RegisterProductInterfaceImpl() {
         productInterface = RetrofitClient.getRetrofitInstance().create(RegisterProductInterface.class);
+    }
+
+    @Override
+    public Call<Void> edit(Product model) {
+        return productInterface.edit(model);
     }
 
     public RegisterProductInterface getProductInterface() {
