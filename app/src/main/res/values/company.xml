@@ -2,7 +2,8 @@
 <resources>
     <style name="Company_Block">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/company_block_background</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">5dp</item>
@@ -14,6 +15,8 @@
         <item name="android:textSize">10sp</item>
     </style>
     <style name="Company_Logo">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:padding">5dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:layout_width">100dp</item>
         <item name="android:scaleType">fitCenter</item>
