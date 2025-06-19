@@ -22,7 +22,7 @@ public enum QuantityItems {
 
     public static QuantityItems fromString(String value) {
         for (QuantityItems type : QuantityItems.values()) {
-            if (type.value.equalsIgnoreCase(value)) {
+            if (type.value.equalsIgnoreCase(value.trim())) {
                 return type;
             }
         }
