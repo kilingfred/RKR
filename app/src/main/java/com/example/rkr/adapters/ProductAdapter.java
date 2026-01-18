@@ -97,7 +97,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         @Override
         public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            // Використовуємо ID для порівняння елементів
             return oldList.get(oldItemPosition).getId() == newList.get(newItemPosition).getId();
         }
 

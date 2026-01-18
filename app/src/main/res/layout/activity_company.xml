@@ -35,11 +35,14 @@
 
                     <LinearLayout
                         style="@style/Company_Block"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:id="@+id/address_block"
+                        android:clickable="true">
 
                         <LinearLayout
                             style="@style/BaseLinearLayout"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                           >
 
                             <ImageView
                                 style="@style/Company_ImageView"
@@ -56,11 +59,14 @@
                     </LinearLayout>
 
                     <LinearLayout style="@style/Company_Block"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:id="@+id/phone_block"
+                        android:clickable="true">
 
                         <LinearLayout
                             style="@style/BaseLinearLayout"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            >
 
                             <ImageView
                                 style="@style/Company_ImageView"
@@ -82,11 +88,13 @@
                     android:orientation="horizontal">
 
                     <LinearLayout style="@style/Company_Block"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:id="@+id/link_block">
 
                         <LinearLayout
                             style="@style/BaseLinearLayout"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            >
 
                             <ImageView
                                 style="@style/Company_ImageView"
@@ -106,10 +114,13 @@
 
                     <LinearLayout
                         style="@style/Company_Block"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:id="@+id/email_block"
+                        >
 
                         <LinearLayout style="@style/BaseLinearLayout"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            >
 
                             <ImageView
                                 style="@style/Company_ImageView"

@@ -10,7 +10,6 @@ public class RetrofitClient {
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
-            // Додаємо GsonBuilder з .setLenient(true)
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();

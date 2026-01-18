@@ -1,9 +1,12 @@
 package com.example.rkr.views;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,10 +57,65 @@ public class CompanyActivity extends BaseActivity {
         TextView phone = findViewById(R.id.phone);
         TextView link = findViewById(R.id.link);
         TextView email = findViewById(R.id.email);
+        LinearLayout phoneBlock = findViewById(R.id.phone_block);
+        LinearLayout emailBlock = findViewById(R.id.email_block);
+        LinearLayout linkBlock = findViewById(R.id.link_block);
+        LinearLayout addressBlock = findViewById(R.id.address_block);
         TextView info = findViewById(R.id.company_info);
 
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         Call<CompanyModel> companyModelCall = apiService.getCompany(company);
+
+        phoneBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(Intent.ACTION_DIAL);
+                intent1.setData(Uri.parse("tel:" + phone.getText().toString()));
+                startActivity(intent1);
+            }
+        });
+
+        addressBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String encodedAddress = Uri.encode(address.getText().toString());
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + encodedAddress);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
+
+        linkBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getText().toString()));
+                startActivity(browserIntent);
+            }
+        });
+
+        emailBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String recipientEmail = email.getText().toString(); // Replace with desired email
+                String subject = "Subject of the email";
+                String messageBody = "Body of the email";
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:")); // or use setData(Uri.parse("mailto:" + recipientEmail));
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipientEmail});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, messageBody);
+
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Send email using:"));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(CompanyActivity.this, "No email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         companyModelCall.enqueue(new Callback<CompanyModel>() {
             @Override

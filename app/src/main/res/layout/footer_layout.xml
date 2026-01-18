@@ -39,7 +39,7 @@
         <TextView
             style="@style/Footer_TextView_clickable"
             android:layout_weight="2"
-            android:text="Персонал"
+            android:text="Про нас"
             android:id="@+id/text_about"/>
 
         <TextView
